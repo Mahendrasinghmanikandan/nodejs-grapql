@@ -7,13 +7,18 @@ const cookieParser = require("cookie-parser");
 
 const typeDefs = require("./typeDefs");
 const resolvers = require("./resolvers");
+const resolvers2 = require("./resolvers2");
 app.use(cookieParser());
 
 async function createApolloServer() {
         const apolloServer = new ApolloServer({
                 typeDefs,
-                resolvers
+                resolvers: {
+                        ...resolvers,
+                        ...resolvers2
+                }
         });
+
         await apolloServer.start();
         apolloServer.applyMiddleware({ app: app });
         app.use((req, res) => {
@@ -24,11 +29,9 @@ async function createApolloServer() {
                 app.listen(8080, () => {
                         console.log("server Started");
                 })
-        }).then(err => {
-                console.log(err);
+        }).catch(err => {
+                console.log(err, "err");
         })
-
-
 }
 
 

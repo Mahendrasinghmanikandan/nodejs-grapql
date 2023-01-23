@@ -1,0 +1,16 @@
+query{
+  # authUser(loginDetails:{
+  #    email:"guru@gmail.com",
+  #   password:"guru"
+  # })
+  dashboard(token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzY2JlNmM4NDEwYjE1MWE3Nzk1MjZmYSIsImVtYWlsIjoiZ3VydUBnbWFpbC5jb20iLCJpYXQiOjE2NzQzMDczNzEsImV4cCI6MTY3NDMxNDU3MX0.fATW8x6i5ac-G-vbfqrIiW_TIcqVbIcAMV05ENkbfks")
+}
+mutation{
+    registerUser(input:{
+    email:"guru@gmail.com",
+    password:"guru"
+  }){
+    email
+    password
+  }
+}
