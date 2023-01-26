@@ -1,22 +1,27 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
 const cookieParser = require("cookie-parser");
 
-
-const typeDefs = require("./typeDefs");
-const resolvers = require("./resolvers");
-const resolvers2 = require("./resolvers2");
 app.use(cookieParser());
+app.use(express.json());
+app.use(cors({
+        Origin: "http://localhost:8080/graphql",
+        Credentials: true
+}));
+
+
+const typeDefs = require("./graphQL/typeDefs/typeDefs");
+const resolvers = require("./graphQL/resolvers/index");
+
 
 async function createApolloServer() {
         const apolloServer = new ApolloServer({
                 typeDefs,
-                resolvers: {
-                        ...resolvers,
-                        ...resolvers2
-                }
+                resolvers,
+                context: ({ req, res }) => ({ req, res })
         });
 
         await apolloServer.start();
